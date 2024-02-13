@@ -11,11 +11,12 @@ Cron is a time-based job scheduling format used in Unix-like operating systems. 
 
 
 Here is an example of the cron syntax:
-┌───────────── minute (0 - 59) <br>
-│  ┌───────────── hour (0 - 23) <br>
-│  │ ┌───────────── day of the month (1 - 31) <br>
-│  │ │ ┌───────────── month (1 - 12)<br>
-│  │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday; 7 is also Sunday on some systems)<br>
+
+┌────────────────────── minute (0 - 59) <br>
+│  ┌──────────────────── hour (0 - 23) <br>
+│  │ ┌───────────────────  day of the month (1 - 31) <br>
+│  │ │ ┌──────────────────  month (1 - 12)<br>
+│  │ │ │ ┌─────────────────  day of the week (0 - 6) (Sunday to Saturday; 7 is also Sunday on some systems)<br>
 │  │ │ │ │<br>
 │  │ │ │ │<br>
 `* * * * *`  command to execute
