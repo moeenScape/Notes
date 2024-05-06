@@ -11,29 +11,37 @@ Cron is a time-based job scheduling format used in Unix-like operating systems. 
 
 
 Here is an example of the cron syntax:
+```
+┌───────────── second (0-59)
+│ ┌───────────── minute (0-59)
+│ │ ┌───────────── hour (0-23)
+│ │ │ ┌───────────── day of the month (1-31)
+│ │ │ │ ┌───────────── month (1-12 or JAN-DEC)
+│ │ │ │ │ ┌───────────── day of the week (0-7 or SUN-SAT; 0 or 7 = Sunday)
+│ │ │ │ │ │
+│ │ │ │ │ │
+* * * * * *
+```
 
-┌────────────────────── minute (0 - 59) <br>
-│  ┌──────────────────── hour (0 - 23) <br>
-│  │ ┌───────────────────  day of the month (1 - 31) <br>
-│  │ │ ┌──────────────────  month (1 - 12)<br>
-│  │ │ │ ┌─────────────────  day of the week (0 - 6) (Sunday to Saturday; 7 is also Sunday on some systems)<br>
-│  │ │ │ │<br>
-│  │ │ │ │<br>
-`* * * * *`  command to execute
-
-`1 0 * * * printf "" > /var/log/apache/error_log` 
-`45 23 * * 6 /home/oracle/scripts/export_dump.sh` 
-`*/5 1,2,3 * * * echo hello world` 
- 
-
-
-| Entry          | Description                                    | Equivalent to    |
-|----------------|------------------------------------------------|------------------|
-| @yearly        | Run once a year at midnight of 1 January     | `0 0 1 1 *`      |
-| @monthly       | Run once a month at midnight of the first day of the month | `0 0 1 * *`  |
-| @weekly        | Run once a week at midnight on Sunday         | `0 0 * * 0`      |
-| @daily (or @midnight) | Run once a day at midnight               | `0 0 * * *`      |
-| @hourly        | Run once an hour at the beginning of the hour | `0 * * * *`      |
-| @reboot        | Run at startup                                | —                |
-
-
+Breakdown of the Fields:
+1. Second:
+Specifies the second when the job should run (0-59).
+2. Minute:
+Specifies the minute when the job should run (0-59).
+3. Hour:
+Specifies the hour when the job should run (0-23).
+4. Day of the Month:
+Specifies the day of the month when the job should run (1-31).
+5. Month:
+Specifies the month when the job should run (1-12 or JAN-DEC).
+6. Day of the Week:
+Specifies the day of the week when the job should run (0-7 or SUN-SAT).
+Special Characters:
+- ```*``` (Asterisk): Represents all values. For example, * in the minute field means every minute.
+- ? (Question Mark): Represents no specific value. Used in the day of the month and day of the week fields to avoid conflicts.
+- ```-``` (Hyphen): Specifies a range of values. For example, 1-5 in the day of the week field means Monday to Friday.
+- , (Comma): Specifies multiple values. For example, MON,WED,FRI means Monday, Wednesday, and Friday.
+- / (Slash): Specifies increments. For example, 0/15 in the minute field means every 15 minutes starting from the top of the hour.
+- L (Last): Used to specify the last occurrence. For example, L in the day of the month field means the last day of the month. L in the day of the week field means the last Friday, and so on.
+- W (Weekday): Represents the nearest weekday. For example, 15W in the day of the month field means the nearest weekday to the 15th of the month.
+- ```#``` (Number Sign): Specifies the nth occurrence of a day. For example, 2#3 in the day of the week field means the third Monday (2) of the month.
