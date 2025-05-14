@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Java Style Guide with Universal Examples</title>
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background: #f4f4f4;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            font-size: 1.2em;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+        .sidebar ul li a:hover {
+            color: #007bff;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            max-width: 800px;
+        }
+        .content h1 {
+            color: #333;
+        }
+        .content h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .content pre {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .correct::before {
+            content: "✅ Correct";
+            color: green;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .incorrect::before {
+            content: "❌ Incorrect";
+            color: red;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Google Java Style Guide</h2>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#source-file-basics">2. Source File Basics</a></li>
+                <li><a href="#formatting">3. Formatting</a></li>
+                <li><a href="#naming">4. Naming</a></li>
+                <li><a href="#programming-practices">5. Programming Practices</a></li>
+                <li><a href="#javadoc">6. Javadoc</a></li>
+                <li><a href="#exceptions">7. Exceptions</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Google Java Style Guide with Universal Examples</h1>
+            <p>This page summarizes the Google Java Style Guide with simple, universal examples that any Java developer can understand. It covers coding standards for consistency and readability, with correct and incorrect code snippets.</p>
+
+            <section id="introduction">
+                <h2>1. Introduction</h2>
+                <p>The Google Java Style Guide defines mandatory coding standards for Java in Google’s open-source projects, ensuring consistent, readable code.</p>
+                <p><strong>Key Rule</strong>: All Java code must follow these rules to be “in Google Style.”</p>
+                <p><strong>Example</strong>: A simple calculator app should use these standards for clean code.</p>
+            </section>
+
+            <section id="source-file-basics">
+                <h2>2. Source File Basics</h2>
+                <p><strong>Rules</strong>:</p>
+                <ul>
+                    <li>File name: Matches top-level class, UpperCamelCase, `.java` extension.</li>
+                    <li>File encoding: UTF-8.</li>
+                    <li>Structure: License, package, imports (no wildcards), one top-level class.</li>
+                </ul>
+                <p><strong>Example</strong>: A user data class file.</p>
+                <pre class="correct"><code class="language-java">
+// User.java
+package com.example.app;
+
+import java.util.List;
+
+public class User {
+    private String username;
+}
+                </code></pre>
+                <pre class="incorrect"><code class="language-java">
+// user_data.java (Wrong naming)
+import java.util.*; // Wildcard import
+
+public class userData { ... }
+                </code></pre>
+            </section>
+
+            <section id="formatting">
+                <h2>3. Formatting</h2>
+                <p><strong>Rules</strong>:</p>
+                <ul>
+                    <li>Braces: K&R style, always used, even for one-liners.</li>
+                    <li>Indentation: 2 spaces, no tabs.</li>
+                    <li>Line length: 100 characters max.</li>
+                    <li>Whitespace: Spaces around operators, no spaces before parentheses.</li>
+                </ul>
+                <p><strong>Example</strong>: A method to check if a number is positive.</p>
+                <pre class="correct"><code class="language-java">
+public boolean isPositive(int number) {
+  return number > 0;
+}
+                </code></pre>
+                <pre class="incorrect"><code class="language-java">
+public boolean isPositive(int number)
+{ // Wrong brace placement
+    return number>0; // No spaces
+}
+                </code></pre>
+            </section>
+
+            <section id="naming">
+                <h2>4. Naming</h2>
+                <p><strong>Rules</strong>:</p>
+                <ul>
+                    <li>Packages: lowercase, no underscores (e.g., <code>com.example.app</code>).</li>
+                    <li>Classes: UpperCamelCase (e.g., <code>Calculator</code>).</li>
+                    <li>Methods: lowerCamelCase, verbs (e.g., <code>calculateSum</code>).</li>
+                    <li>Variables: lowerCamelCase (e.g., <code>totalAmount</code>).</li>
+                    <li>Constants: UPPER_SNAKE_CASE (e.g., <code>MAX_VALUE</code>).</li>
+                </ul>
+                <p><strong>Example</strong>: A calculator class.</p>
+                <pre class="correct"><code class="language-java">
+package com.example.app;
+
+public class Calculator {
+    private static final int MAX_VALUE = 1000;
+
+    public int calculateSum(int firstNumber, int secondNumber) {
+        int totalAmount = firstNumber + secondNumber;
+        return totalAmount;
+    }
+}
+                </code></pre>
+                <pre class="incorrect"><code class="language-java">
+package com.example.APP; // Wrong case
+
+public class calculator { // Wrong naming
+    private static final int maxValue = 1000; // Not UPPER_SNAKE_CASE
+
+    public int Calculate_Sum(int FirstNumber, int SecondNumber) { // Wrong naming
+        int Total_Amount = FirstNumber + SecondNumber; // Wrong naming
+        return Total_Amount;
+    }
+}
+                </code></pre>
+            </section>
+
+            <section id="programming-practices">
+                <h2>5. Programming Practices</h2>
+                <p><strong>Rules</strong>:</p>
+                <ul>
+                    <li><code>@Override</code>: Always use when overriding.</li>
+                    <li>Exceptions: Never ignore caught exceptions; log or rethrow.</li>
+                    <li>Static members: Access via class name, not instance.</li>
+                    <li>Finalizers: Avoid <code>finalize()</code>.</li>
+                </ul>
+                <p><strong>Example</strong>: File reading utility.</p>
+                <pre class="correct"><code class="language-java">
+import java.io.IOException;
+import java.util.logging.Logger;
+
+public class FileReader {
+    private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
+
+    @Override
+    public String toString() {
+        return "FileReader";
+    }
+
+    public void readFile(String path) {
+        try {
+            FileReader.process(path);
+        } catch (IOException e) {
+            LOGGER.severe("Failed to read file: " + e.getMessage());
+        }
+    }
+
+    private static void process(String path) throws IOException { ... }
+}
+                </code></pre>
+                <pre class="incorrect"><code class="language-java">
+public class FileReader {
+    public String toString() { // Missing @Override
+        return "FileReader";
+    }
+
+    public void readFile(String path) {
+        try {
+            process(path);
+        } catch (IOException e) {} // Ignored exception
+    }
+
+    private void process(String path) throws IOException { ... } // Instance method for static
+}
+                </code></pre>
+            </section>
+
+            <section id="javadoc">
+                <h2>6. Javadoc</h2>
+                <p><strong>Rules</strong>:</p>
+                <ul>
+                    <li>Required for public classes/methods, starts with a summary.</li>
+                    <li>Use <code>@param</code>, <code>@return</code>, <code>@throws</code> in order.</li>
+                    <li>80-character summary, one blank line between paragraphs.</li>
+                </ul>
+                <p><strong>Example</strong>: Documenting a string utility method.</p>
+                <pre class="correct"><code class="language-java">
+/**
+ * Checks if a string is empty or null.
+ *
+ * @param input the string to check
+ * @return true if the string is empty or null, false otherwise
+ * @throws IllegalArgumentException if input is invalid
+ */
+public boolean isEmptyString(String input) {
+    return input == null || input.isEmpty();
+}
+                </code></pre>
+                <pre class="incorrect"><code class="language-java">
+/** Checks string */ // Too vague, missing tags
+public boolean isEmptyString(String input) {
+    return input == null || input.isEmpty();
+}
+                </code></pre>
+            </section>
+
+            <section id="exceptions">
+                <h2>7. Exceptions</h2>
+                <p><strong>Rule</strong>: Handle exceptions clearly, aligning with Section 5.2 (don’t ignore).</p>
+                <p><strong>Example</strong>: Validating user input.</p>
+                <pre class="correct"><code class="language-java">
+public void validateUserInput(String username) {
+    if (username == null || username.isEmpty()) {
+        throw new IllegalArgumentException("Username cannot be null or empty");
+    }
+}
+                </code></pre>
+                <pre class="incorrect"><code class="language-java">
+public void validateUserInput(String username) {
+    if (username == null || username.isEmpty()) {
+        return; // Silently ignores error
+    }
+}
+                </code></pre>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
